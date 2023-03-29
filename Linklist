@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <conio.h>
+#include <iostream>
+
+using namespace std;
+
+struct simpul{
+	string nama;
+	int nbi;
+	simpul *next;
+};
+
+simpul *awal;
+void tambah_urut();
+void tampil();
+void hapus();
+
+int main(){
+	awal=NULL;
+	int pil=1;
+	while(pil!=4){
+		system("cls");
+		cout<<"1.Tambah dan Urut\n";
+		cout<<"2.Tampil Isi Link List\n";
+		cout<<"3.Hapus Data Link List\n";
+		cout<<"4.Exit\n\n";
+		cout<<"Pilihan Anda : ";
+		cin>>pil;
+		if(pil==1)
+		tambah_urut();
+		else if(pil==2)
+		tampil();
+		else if(pil==3)
+		hapus();
+		getch();
+	}
+}
+
+
+void tambah_urut(){
+	string nma;
+	int dat;
+	simpul *baru,*pos1,*pos2;
+	baru=new simpul;
+	cout<<"Data Mahasiswa\n";
+	cout<<"-----------------------\n";
+	cout<<"Masukkan NIM   : ";
+	cin>>dat;
+	baru->nbi=dat;
+	cout<<"Masukkan Nama  : ";
+	cin>>nma;
+	baru->nama=nma;
+	baru->next=NULL;
+	pos1=pos2=awal;
+	// pos1=awal;pos2=pos1;
+	if (awal==NULL)
+	awal=baru;
+	else{
+		while (pos1!=NULL&&pos1->nbi<baru->nbi ){
+			pos2=pos1;
+			pos1=pos1->next;
+		}
+		baru->next=pos1;
+		if (pos1!=awal)
+		pos2->next=baru;            //posisi ditengah dan belakang
+		else
+		awal=baru;  //posisi di awal
+	}	
+}
+
+void tampil(){
+	int i = 1;
+	simpul *baru;
+	baru=awal;
+	if(awal==NULL)
+	cout<<"Data Mahasiswa tidak ada\n";
+	else{
+		cout<<"Data Mahasiswa\n";
+		cout<<"-------------------------\n";
+		while(baru!=NULL){
+			cout<<"Data ke - "<<i++<<endl;
+			cout<<"NIM  : "<<baru->nbi<<endl;
+			cout<<"Nama : "<<baru->nama<<endl;
+			baru=baru->next;
+			cout<<"-------------------------\n";
+		}
+	}
+}
+
+void hapus(){
+	string yakin;
+	int dat;
+	simpul *pos1,*pos2;
+	cout<<"Masukkan NIM yang dihapus : ";
+	cin>>dat;
+	pos1=awal;pos2=pos1;
+	if (awal==NULL)
+	cout<<"Data Mahasiswa tidak ada\n";
+	else{
+		while (pos1!=NULL ){
+			if (pos1->nbi==dat)
+			break;
+			pos2=pos1;
+			pos1=pos1->next;
+		}
+		if(pos1==NULL){
+			cout<<"Data Mahasiswa yang dihapus tidak ditemukan";
+			return ;
+		}	
+		else{
+			cout<<"Yakin ingin menghapus y/t : "; //Menghapus data atau tidak
+			cin>>yakin;
+			if(yakin=="y"){	
+				if(pos1==awal)
+				awal=awal->next;
+				else
+				pos2->next=pos1->next;
+				delete pos1;
+				cout<<"Data Mahasiswa telah dihapus";
+			}
+			if(yakin=="t")
+			cout<<"Data Mahasiswa tidak jadi dihapus";
+		}
+	}
+}
