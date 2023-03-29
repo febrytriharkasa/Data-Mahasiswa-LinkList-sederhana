@@ -88,8 +88,7 @@ void tampil(){
 void hapus(){
 	string yakin;
 	int dat;
-	simpul *pos1,*pos2,*baru;
-	baru=awal;
+	simpul *pos1,*pos2;
 	cout<<"Masukkan NIM yang dihapus : ";
 	cin>>dat;
 	pos1=awal;pos2=pos1;
@@ -107,14 +106,6 @@ void hapus(){
 			return ;
 		}	
 		else{
-			cout<<"Data Mahasiswa\n";
-			cout<<"-------------------------\n";
-			while(baru!=NULL){
-				cout<<"NIM  : "<<baru->nbi<<endl;
-				cout<<"Nama : "<<baru->nama<<endl;
-				baru=baru->next;
-				cout<<"-------------------------\n";
-			}
 			cout<<"Yakin ingin menghapus y/t : "; //Menghapus data atau tidak
 			cin>>yakin;
 			if(yakin=="y"){	
